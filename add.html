@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Inventory Management - Add</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8EACA;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #F8EACA;
+            color: #fff;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+            top: 0;
+        }
+        .navbar-brand {
+            font-size: 24px;
+        }
+        .navbar-brand span {
+            display: block;
+
+        }
+        .navbar-brand a, .navbar-brand a:visited {
+            text-decoration: none;
+            color: #CE6D46;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links li {
+            margin-left: 30px;
+        }
+        .nav-links a {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 0;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 898px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-group label {
+            flex: 0 0 200px;
+            margin-right: 10px;
+            font-size: 32px;
+        }
+        .input-field {
+            width: 688px;
+            height: 59px;
+            background-color: #F8EACA;
+            padding: 10px;
+            font-size: 32px;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .add-button-container {
+            display: flex;
+            justify-content: flex-end;
+            width: 898px;
+            margin: 0 auto;
+        }
+        .add-button {
+            background-color: #CDB38C;
+            color: black;
+            font-size: 32px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="navbar-brand">
+            <a href="index.html">Guitar Inventory <span>Management</span></a></h1>        
+        <ul class="nav-links">
+            <li><a href="About.html">About</a></li>
+            <li><a href="Add.html">Add</a></li>
+            <li><a href="Search.html">Search</a></li>
+        </ul>
+    </div>
+    
+
+
+<div class="form-container">
+    <div class="form-group">
+        <label for="serialNumber"><strong>Serial Number:</strong></label>
+        <input type="text" class="input-field" id="serialNumber">
+    </div>
+    <div class="form-group">
+        <label for="price"><strong>Price:</strong></label>
+        <input type="number" class="input-field" id="price">
+    </div>
+    <div class="form-group">
+        <label for="builder"><strong>Builder:</strong></label>
+        <input type="text" class="input-field" id="builder">
+    </div>
+    <div class="form-group">
+        <label for="model"><strong>Model:</strong></label>
+        <input type="text" class="input-field" id="model">
+    </div>
+    <div class="form-group">
+        <label for="type"><strong>Type:</strong></label>
+        <input type="text" class="input-field" id="type">
+    </div>
+    <div class="form-group">
+        <label for="backWood"><strong>Back Wood:</strong></label>
+        <input type="text" class="input-field" id="backWood">
+    </div>
+    <div class="form-group">
+        <label for="topWood"><strong>Top Wood:</strong></label>
+        <input type="text" class="input-field" id="topWood">
+    </div>
+    <div class="add-button-container">
+        <button class="add-button" onclick="addGuitar()">Add the guitar</button>
+    </div>
+</div>
+
+<script>
+    function addGuitar() {
+        const serialNumber = document.getElementById('serialNumber').value;
+        const price = document.getElementById('price').value;
+        const builder = document.getElementById('builder').value;
+        const model = document.getElementById('model').value;
+        const type = document.getElementById('type').value;
+        const backWood = document.getElementById('backWood').value;
+        const topWood = document.getElementById('topWood').value;
+
+        const guitarData = {
+            serialNumber: serialNumber,
+            price: price,
+            builder: builder,
+            model: model,
+            type: type,
+            backWood: backWood,
+            topWood: topWood
+        };
+
+        alert(JSON.stringify(guitarData, null, 2));
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Inventory Management - Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8EACA;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #F8EACA;
+            color: #fff;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+            top: 0;
+        }
+        .navbar-brand {
+            font-size: 24px;
+        }
+        .navbar-brand span {
+            display: block;
+
+        }
+        .navbar-brand a, .navbar-brand a:visited {
+            text-decoration: none;
+            color: #CE6D46;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .nav-links li {
+            margin-left: 30px;
+        }
+        .nav-links a {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 0;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 898px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group label {
+            flex: 0 0 200px;
+            margin-right: 10px;
+            font-size: 32px;
+            font-family: 'Inter', sans-serif;
+        }
+
+    .input-field {
+            width: 688px;
+            height: 59px;
+            background-color: #F8EACA;
+            padding: 10px;
+            font-size: 32px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .search-button-container {
+            display: flex;
+            justify-content: flex-end;
+            width: 898px;
+            margin: 0 auto;
+        }
+
+        .search-button {
+            background-color: #CDB38C;
+            color: black;
+            font-size: 32px;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+        }
+
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 984px;
+            background-color: #FFFF;
+            margin-left: auto;
+            margin-right: auto;
+            /* still doesnt work */
+            font-weight: 250 !important;
+            font-size: 12px;
+        }
+        th {
+            background-color: #B9B9B9;
+            color: black;
+            text-align: left;
+        }
+
+        td, th {
+            border: 1px solid #000000;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1 class="navbar-brand">
+            <a href="index.html">Guitar Inventory <span>Management</span></a></h1>
+            <ul class="nav-links">
+            <li><a href="About.html">About</a></li>
+            <li><a href="Add.html">Add</a></li>
+            <li><a href="Search.html">Search</a></li>
+        </ul>
+    </div>
+    
+
+<div class="form-container">
+    <div class="form-group">
+        <label for="builder"><strong>Builder:</strong></label>
+        <input type="text" class="input-field" id="builder">
+    </div>
+    <div class="form-group">
+        <label for="model"><strong>Model:</strong></label>
+        <input type="text" class="input-field" id="model">
+    </div>
+    <div class="form-group">
+        <label for="type"><strong>Type:</strong></label>
+        <input type="text" class="input-field" id="type">
+    </div>
+    <div class="form-group">
+        <label for="backWood"><strong>Back Wood:</strong></label>
+        <input type="text" class="input-field" id="backWood">
+    </div>
+    <div class="form-group">
+        <label for="topWood"><strong>Top Wood:</strong></label>
+        <input type="text" class="input-field" id="topWood">
+    </div>
+    <div class="search-button-container">
+        <button class="search-button" onclick="searchGuitars()">Search</button>
+    </div>
+</div>
+
+
+<div id="searchResults"></div>
+
+<script>
+const guitars = [
+    { serialNumber: 1, price: 1500, builder: 'Fender', model: 'Model 1', type: 'Electric', backWood: 'Maple', topWood: 'Maple' },
+    { serialNumber: 2, price: 2000, builder: 'Gibson', model: 'Model 2', type: 'Electric', backWood: 'Mahogany', topWood: 'Maple' },
+    { serialNumber: 3, price: 1200, builder: 'Martin', model: 'Model 3', type: 'Acoustic', backWood: 'Indian Rosewood', topWood: 'Sitka' },
+    { serialNumber: 4, price: 800, builder: 'Taylor', model: 'Model 4', type: 'Acoustic', backWood: 'Sapele', topWood: 'Sitka Spruce' },
+    { serialNumber: 5, price: 2500, builder: 'PRS', model: 'Model 5', type: 'Electric', backWood: 'Mahogany', topWood: 'Maple' },
+];
+
+function searchGuitars() {
+    const builder = document.getElementById('builder').value;
+    const model = document.getElementById('model').value;
+    const type = document.getElementById('type').value;
+    const backWood = document.getElementById('backWood').value;
+    const topWood = document.getElementById('topWood').value;
+
+    const results = guitars.filter(guitar => 
+        (builder ? guitar.builder.includes(builder) : true) &&
+        (model ? guitar.model.includes(model) : true) &&
+        (type ? guitar.type.includes(type) : true) &&
+        (backWood ? guitar.backWood.includes(backWood) : true) &&
+        (topWood ? guitar.topWood.includes(topWood) : true)
+    );
+
+    displayResults(results);
+}
+    function displayResults(results) {
+        const resultsDiv = document.getElementById('searchResults');
+        resultsDiv.innerHTML = '';
+
+        if (results.length > 0) {
+            const table = document.createElement('table');
+            table.innerHTML = `<tr>
+                <th>Serial Number</th>
+                <th>Price</th>
+                <th>Builder</th>
+                <th>Model</th>
+                <th>Type</th>
+                <th>Back Wood</th>
+                <th>Top Wood</th>
+            </tr>`;
+            results.forEach(guitar => {
+                const row = table.insertRow(-1);
+                row.insertCell(0).innerText = guitar.serialNumber;
+                row.insertCell(1).innerText = guitar.price;
+                row.insertCell(2).innerText = guitar.builder;
+                row.insertCell(3).innerText = guitar.model;
+                row.insertCell(4).innerText = guitar.type;
+                row.insertCell(5).innerText = guitar.backWood;
+                row.insertCell(6).innerText = guitar.topWood;
+            });
+            resultsDiv.appendChild(table);
+        } else {
+            resultsDiv.innerHTML = '<p>No guitars found matching the criteria.</p>';
+        }
+    }
+</script>
+
+</body>
+</html>

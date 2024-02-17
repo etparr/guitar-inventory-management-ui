@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Inventory Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #F8EACA;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #F8EACA;
+            color: #fff;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            z-index: 1000;
+            top: 0;
+        }
+        .navbar-brand {
+            font-size: 24px;
+        }
+        .navbar-brand span {
+            display: block;
+
+        }
+        .navbar-brand a, .navbar-brand a:visited {
+            text-decoration: none;
+            color: #CE6D46;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        .nav-links li {
+            margin-left: 30px;
+        }
+        .nav-links a {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+            text-decoration: none;
+        }
+        .content {
+            padding-top: 100px;
+            
+        }
+        .guitar-image {
+            position: absolute;
+            width: 733px;
+            height: 571px;
+            left: 295px;
+            top: 264px;
+            background: url(guitar.jpg);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1 class="navbar-brand">
+            <a href="index.html">Guitar Inventory <span>Management</span></a></h1>        
+        <ul class="nav-links">
+            <li><a href="About.html">About</a></li>
+            <li><a href="Add.html">Add</a></li>
+            <li><a href="Search.html">Search</a></li>
+        </ul>
+    </div>
+    <div class="guitar-image"></div>
+
+<div class="content">
+</div>
+
+</body>
+</html>
