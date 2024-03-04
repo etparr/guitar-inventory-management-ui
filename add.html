@@ -149,27 +149,51 @@
 </div>
 
 <script>
-    function addGuitar() {
-        const serialNumber = document.getElementById('serialNumber').value;
-        const price = document.getElementById('price').value;
-        const builder = document.getElementById('builder').value;
-        const model = document.getElementById('model').value;
-        const type = document.getElementById('type').value;
-        const backWood = document.getElementById('backWood').value;
-        const topWood = document.getElementById('topWood').value;
+function addGuitar() {
+    const serialNumber = document.getElementById('serialNumber').value;
+    const price = document.getElementById('price').value;
+    const builder = document.getElementById('builder').value;
+    const model = document.getElementById('model').value;
+    const type = document.getElementById('type').value;
+    const backWood = document.getElementById('backWood').value;
+    const topWood = document.getElementById('topWood').value;
 
-        const guitarData = {
-            serialNumber: serialNumber,
-            price: price,
-            builder: builder,
-            model: model,
-            type: type,
-            backWood: backWood,
-            topWood: topWood
-        };
-
-        alert(JSON.stringify(guitarData, null, 2));
+    // Check for empty fields
+    if (!serialNumber || !price || !builder || !model || !type || !backWood || !topWood) {
+        alert('Please enter all the fields.');
+        return;
     }
+
+    const guitarData = {
+        serialNumber: serialNumber,
+        price: price,
+        builder: builder,
+        model: model,
+        type: type,
+        backWood: backWood,
+        topWood: topWood
+    };
+
+    fetch('http://localhost:8080/inventory', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(guitarData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('The guitar was added to the system');
+        } else {
+            alert('Something went wrong. Please try again or contact the customer support team.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Something went wrong. Please try again or contact the customer support team.');
+    });
+}
 </script>
 
 </body>

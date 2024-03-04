@@ -175,63 +175,41 @@
 
 <div id="searchResults"></div>
 
-<script>
-const guitars = [
-    { serialNumber: 1, price: 1500, builder: 'Fender', model: 'Model 1', type: 'Electric', backWood: 'Maple', topWood: 'Maple' },
-    { serialNumber: 2, price: 2000, builder: 'Gibson', model: 'Model 2', type: 'Electric', backWood: 'Mahogany', topWood: 'Maple' },
-    { serialNumber: 3, price: 1200, builder: 'Martin', model: 'Model 3', type: 'Acoustic', backWood: 'Indian Rosewood', topWood: 'Sitka' },
-    { serialNumber: 4, price: 800, builder: 'Taylor', model: 'Model 4', type: 'Acoustic', backWood: 'Sapele', topWood: 'Sitka Spruce' },
-    { serialNumber: 5, price: 2500, builder: 'PRS', model: 'Model 5', type: 'Electric', backWood: 'Mahogany', topWood: 'Maple' },
-];
-
-function searchGuitars() {
-    const builder = document.getElementById('builder').value;
-    const model = document.getElementById('model').value;
-    const type = document.getElementById('type').value;
-    const backWood = document.getElementById('backWood').value;
-    const topWood = document.getElementById('topWood').value;
-
-    const results = guitars.filter(guitar => 
-        (builder ? guitar.builder.includes(builder) : true) &&
-        (model ? guitar.model.includes(model) : true) &&
-        (type ? guitar.type.includes(type) : true) &&
-        (backWood ? guitar.backWood.includes(backWood) : true) &&
-        (topWood ? guitar.topWood.includes(topWood) : true)
-    );
-
-    displayResults(results);
-}
-    function displayResults(results) {
-        const resultsDiv = document.getElementById('searchResults');
-        resultsDiv.innerHTML = '';
-
-        if (results.length > 0) {
-            const table = document.createElement('table');
-            table.innerHTML = `<tr>
-                <th>Serial Number</th>
-                <th>Price</th>
-                <th>Builder</th>
-                <th>Model</th>
-                <th>Type</th>
-                <th>Back Wood</th>
-                <th>Top Wood</th>
-            </tr>`;
-            results.forEach(guitar => {
-                const row = table.insertRow(-1);
-                row.insertCell(0).innerText = guitar.serialNumber;
-                row.insertCell(1).innerText = guitar.price;
-                row.insertCell(2).innerText = guitar.builder;
-                row.insertCell(3).innerText = guitar.model;
-                row.insertCell(4).innerText = guitar.type;
-                row.insertCell(5).innerText = guitar.backWood;
-                row.insertCell(6).innerText = guitar.topWood;
+<script>    
+    function searchGuitars() {
+        const builder = document.getElementById('builder').value;
+        const model = document.getElementById('model').value;
+        const type = document.getElementById('type').value;
+        const backWood = document.getElementById('backWood').value;
+        const topWood = document.getElementById('topWood').value;
+    
+        const queryParams = new URLSearchParams({
+            builderString: builder,
+            model: model,
+            typeString: type,
+            backWoodString: backWood,
+            topWoodString: topWood,
+        });
+        const searchUrl = `http://localhost:8080/inventory/search?${queryParams.toString()}`;
+    
+        fetch(searchUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error();
+                }
+                return response.json();
+            })
+            .then(results => {
+                displayResults(results);
+            })
+            .catch(error => {
+                console.error('Error with fetch', error);
+                alert('Something went wrong. Please try again or contact the customer support team.');
             });
-            resultsDiv.appendChild(table);
-        } else {
-            resultsDiv.innerHTML = '<p>No guitars found matching the criteria.</p>';
-        }
     }
-</script>
+    
+    </script>
+    
 
 </body>
 </html>
